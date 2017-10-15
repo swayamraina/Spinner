@@ -2,21 +2,62 @@
 var canvas = document.getElementById("screen");
 var context = canvas.getContext("2d");
 
-var start_angle_for_green = 0;
-var end_angle_for_green = 0.5 * Math.PI;
+var start_angle_for_orange, end_angle_for_orange;
+var start_angle_for_blue, end_angle_for_blue;
+var start_angle_for_green, end_angle_for_green;
 
-function incrementAngles(diff) {
-	start_angle_for_green = (start_angle_for_green + diff) % (2*Math.PI); 
-	end_angle_for_green = (end_angle_for_green + diff) % (2*Math.PI);
+function init() {
+	context.lineWidth = 3;
+
+	start_angle_for_orange = 0.20 * Math.PI;
+	end_angle_for_orange = 0.7 * Math.PI;
+
+	start_angle_for_blue = 0.4 * Math.PI;
+	end_angle_for_blue = 1.2 * Math.PI;
+
+	start_angle_for_green = 0;
+	end_angle_for_green = 0.5 * Math.PI;
+}
+
+function incrementAngles(code, diff) {
+	switch(code) {
+		case 'B':
+				start_angle_for_blue = (start_angle_for_blue + diff) % (2*Math.PI);
+				end_angle_for_blue = (end_angle_for_blue + diff) % (2*Math.PI);
+				break;
+		case 'O':
+				start_angle_for_orange = (start_angle_for_orange + diff) % (2*Math.PI);
+				end_angle_for_orange = (end_angle_for_orange + diff) % (2*Math.PI);
+				break;
+		case 'G':
+				start_angle_for_green = (start_angle_for_green + diff) % (2*Math.PI);
+				end_angle_for_green = (end_angle_for_green + diff) % (2*Math.PI);
+				break;
+	}
 }
 
 function drawGreen() {
-	context.clearRect(0,0,canvas.width, canvas.height);
 	context.beginPath();
 	context.arc(100, 100, 70, start_angle_for_green, end_angle_for_green);
-	context.lineWidth = 5;
+	context.strokeStyle = "#0000FF";
 	context.stroke();
-	incrementAngles(0.03*Math.PI);
+	incrementAngles('G', 0.12*Math.PI);
+}
+
+function drawOrange() {
+	context.beginPath();
+	context.arc(100, 100, 64, start_angle_for_orange, end_angle_for_orange);
+	context.strokeStyle = "#FF0000";
+	context.stroke();
+	incrementAngles('O', 0.09*Math.PI);
+}
+
+function drawBue() {
+	context.beginPath();
+	context.arc(100, 100, 58, start_angle_for_blue, end_angle_for_blue);
+	context.strokeStyle = "#00FF00";
+	context.stroke();
+	incrementAngles('B', 0.06*Math.PI);
 }
 
 function rotate(draw) {
@@ -24,9 +65,35 @@ function rotate(draw) {
 }
 
 function startGreen() {
-	var timer = setInterval(function() {
+	var timerG = setInterval(function() {
 		rotate(drawGreen);
-	}, 40);
+	}, 80);
 }
 
-startGreen();
+function startBlue() {
+	var timerB = setInterval(function() {
+		rotate(drawBue);
+	}, 80);
+}
+
+function startOrange() {
+	var timerO = setInterval(function() {
+		rotate(drawOrange);
+	}, 80);
+}
+
+function clear() {
+	var clearTimer = setInterval(function() {
+		context.clearRect(0,0,canvas.width,canvas.height);
+	}, 160);
+}
+
+function run() {
+	init();
+	clear();
+	startGreen();
+	startOrange();
+	startBlue();
+}
+
+run();
