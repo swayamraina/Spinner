@@ -7,7 +7,7 @@ var start_angle_for_blue, end_angle_for_blue;
 var start_angle_for_green, end_angle_for_green;
 
 function init() {
-	context.lineWidth = 3;
+	context.lineWidth = 1.5;
 
 	start_angle_for_orange = 0.20 * Math.PI;
 	end_angle_for_orange = 0.7 * Math.PI;
@@ -24,15 +24,15 @@ function incrementAngles(code, diff) {
 		case 'B':
 				start_angle_for_blue = (start_angle_for_blue + diff) % (2*Math.PI);
 				end_angle_for_blue = (end_angle_for_blue + diff) % (2*Math.PI);
-				break;
+			break;
 		case 'O':
 				start_angle_for_orange = (start_angle_for_orange + diff) % (2*Math.PI);
 				end_angle_for_orange = (end_angle_for_orange + diff) % (2*Math.PI);
-				break;
+			break;
 		case 'G':
 				start_angle_for_green = (start_angle_for_green + diff) % (2*Math.PI);
 				end_angle_for_green = (end_angle_for_green + diff) % (2*Math.PI);
-				break;
+			break;
 	}
 }
 
