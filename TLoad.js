@@ -8,6 +8,7 @@ var start_angle_for_green, end_angle_for_green;
 
 function init() {
 	context.lineWidth = 1.5;
+	context.lineCap = 'round';
 
 	start_angle_for_orange = 0.20 * Math.PI;
 	end_angle_for_orange = 0.7 * Math.PI;
